@@ -9,21 +9,19 @@ import { lusitana } from '@/app/ui/fonts';
 import { InvoicesTableSkeleton } from '@/app/ui/skeletons';
 import { fetchInvoicesPages } from '@/app/lib/data';
 
-// Optional: Metadata for SEO
 export const metadata: Metadata = {
   title: 'Invoices',
 };
 
-type Props = {
-  searchParams?: {
-    query?: string;
-    page?: string;
-  };
-};
+interface PageProps {
+  searchParams?: Record<string, string | string[] | undefined>;
+}
 
-export default async function Page({ searchParams }: Props) {
-  const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page) || 1;
+export default async function Page({ searchParams }: PageProps) {
+  const query = typeof searchParams?.query === 'string' ? searchParams.query : '';
+  const currentPage =
+    typeof searchParams?.page === 'string' ? Number(searchParams.page) : 1;
+
   const totalPages = await fetchInvoicesPages(query);
 
   return (
@@ -47,3 +45,4 @@ export default async function Page({ searchParams }: Props) {
     </div>
   );
 }
+
