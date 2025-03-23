@@ -5,7 +5,6 @@ import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 async function seedUsers() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
   await sql`
     CREATE TABLE IF NOT EXISTS users (
       id UUID DEFAULT uuid_generate_v4() PRIMARY KEY,
@@ -15,13 +14,15 @@ async function seedUsers() {
     );
   `;
 
+  // 🔥 Delete old users (optional if you're okay with wiping)
+  await sql`DELETE FROM users`;
+
   const insertedUsers = await Promise.all(
     users.map(async (user) => {
-      const hashedPassword = bcrypt.hashSync('your-password', 10);
+      const hashedPassword = bcrypt.hashSync('123456', 10); // 👈 consistent password
       return sql`
         INSERT INTO users (id, name, email, password)
-        VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword})
-        ON CONFLICT (id) DO NOTHING;
+        VALUES (${user.id}, ${user.name}, ${user.email}, ${hashedPassword});
       `;
     }),
   );
@@ -30,7 +31,7 @@ async function seedUsers() {
 }
 
 async function seedInvoices() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  //await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
   await sql`
     CREATE TABLE IF NOT EXISTS invoices (
@@ -56,7 +57,7 @@ async function seedInvoices() {
 }
 
 async function seedCustomers() {
-  await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
+  //await sql`CREATE EXTENSION IF NOT EXISTS "uuid-ossp"`;
 
   await sql`
     CREATE TABLE IF NOT EXISTS customers (
