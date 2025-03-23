@@ -19,6 +19,13 @@ import { fetchInvoicesPages } from '@/app/lib/data';
 
   const totalPages = await fetchInvoicesPages(query);*/
 
+/*export default async function Page({ searchParams }: any) {
+  const query = searchParams?.query?.toString() || '';
+  const currentPage = Number(searchParams?.page) || 1;
+  const totalPages = await fetchInvoicesPages(query);*/
+
+  
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 export default async function Page({ searchParams }: any) {
   const query = searchParams?.query?.toString() || '';
   const currentPage = Number(searchParams?.page) || 1;
