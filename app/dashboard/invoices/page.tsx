@@ -9,7 +9,7 @@ import { fetchInvoicesPages } from '@/app/lib/data';
 
 
 interface PageProps {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Record<string, string | string[] | undefined>;
 }
 
 export default async function Page({ searchParams }: PageProps) {
