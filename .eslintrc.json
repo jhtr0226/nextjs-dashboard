@@ -1,8 +1,10 @@
 {
   "extends": [
     "next/core-web-vitals",
-    "next/typescript"
+    "next/typescript",
+    "next/core-web-vitals", "next"
   ],
+  
   "rules": {
     "@typescript-eslint/no-unused-vars": "warn",
     "react/jsx-no-comment-textnodes": "off",
